@@ -1,13 +1,12 @@
-import { ArrowsAltOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import { Flex } from "antd";
 import Text from "antd/es/typography/Text";
 import React from "react";
 import Handle from "./Handle";
-import { Edge, Position, useEdges, useReactFlow } from "@xyflow/react";
+import { Position, useReactFlow } from "@xyflow/react";
 import { PaymentProvider } from "../types/types";
 import { Icons } from "./PaymentProviderSelect";
 import NodeResizeControl from "./NodeResizeControl";
-import { getLinkEdge } from "../utils/getLinkEdge";
 import Button from "./Button";
 const controlStyle = {
   background: "transparent",
@@ -18,24 +17,8 @@ const PaymentProviderNode: React.FC<PaymentProvider> = ({
   selected,
   id,
 }) => {
-  const { setNodes, setEdges } = useReactFlow();
-  const edges = useEdges();
-  React.useEffect(() => {
-    const linkIds = getLinkEdge(id, edges);
-    setEdges((prev) => {
-      const newEdges = prev.map((item) => {
-        if (linkIds.includes(item.id)) {
-          return {
-            ...item,
-            animated: !selected,
-            style: selected ? { stroke: "red" } : {},
-          };
-        }
-        return item;
-      });
-      return newEdges;
-    });
-  }, [selected]);
+  const { setNodes } = useReactFlow();
+
   return (
     <>
       {selected && (

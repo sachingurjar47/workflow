@@ -1,8 +1,8 @@
 import { CloseOutlined } from "@ant-design/icons";
 import {
-  BezierEdge,
+  SmoothStepEdge as RFSmoothStepEdge,
   EdgeLabelRenderer,
-  EdgeProps,
+  SimpleBezierEdgeProps,
   getBezierPath,
   useEdges,
   useNodes,
@@ -12,7 +12,7 @@ import React, { useEffect } from "react";
 import Button from "./Button";
 import { getLinkEdge } from "../utils/getLinkEdge";
 
-const Edge: React.FC<EdgeProps> = (props) => {
+const SmoothStepEdge: React.FC<SimpleBezierEdgeProps> = (props) => {
   const { id } = props;
   const { setEdges } = useReactFlow();
   const nodes = useNodes();
@@ -36,7 +36,7 @@ const Edge: React.FC<EdgeProps> = (props) => {
 
   return (
     <>
-      <BezierEdge {...props} />
+      <RFSmoothStepEdge {...props} />
       <EdgeLabelRenderer>
         <Button
           title="Delete Edge"
@@ -59,4 +59,4 @@ const Edge: React.FC<EdgeProps> = (props) => {
   );
 };
 
-export default Edge;
+export default SmoothStepEdge;

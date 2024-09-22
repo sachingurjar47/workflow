@@ -1,34 +1,14 @@
 import { Flex } from "antd";
 import Text from "antd/es/typography/Text";
-import React, { useEffect, memo } from "react";
+import React, { memo } from "react";
 import Handle from "./Handle";
 import ReactCountryFlag from "react-country-flag";
-import { Position, useReactFlow, NodeProps, useEdges } from "@xyflow/react";
+import { Position, NodeProps } from "@xyflow/react";
 import { CountryProps } from "../types/types";
 import NodeResizeControl from "./NodeResizeControl";
-import { getLinkEdge } from "../utils/getLinkEdge";
 
 const PaymentCountryNode: React.FC<NodeProps<CountryProps>> = memo(
-  ({ data: { country, countryCode, currency }, selected, id }) => {
-    const edges = useEdges();
-    const { setEdges } = useReactFlow();
-    useEffect(() => {
-      setEdges((prev) => {
-        const linkIds = getLinkEdge(id, edges);
-        const newEdges = prev.map((item) => {
-          if (linkIds.includes(item.id)) {
-            return {
-              ...item,
-              animated: !selected,
-              style: selected ? { stroke: "red" } : {},
-            };
-          }
-          return item;
-        });
-        return newEdges;
-      });
-    }, [selected]);
-
+  ({ data: { country, countryCode, currency }, selected }) => {
     return (
       <Flex
         style={{

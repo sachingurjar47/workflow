@@ -1,10 +1,13 @@
+import { ReactFlowProvider } from "@xyflow/react";
 import Workflow from "./components/Workflow";
 import { MessageProvider } from "./utils/Alert/AlertContext";
 
 export default function App() {
   return (
     <MessageProvider>
-      <Workflow />
+      <ReactFlowProvider>
+        <Workflow />
+      </ReactFlowProvider>
     </MessageProvider>
   );
 }

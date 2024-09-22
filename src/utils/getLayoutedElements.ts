@@ -9,6 +9,7 @@ type Direction = "LR" | "TB" | "BT" | "RL";
 export const getLayoutedElements = (
   nodes: Node[],
   edges: Edge[],
+  isAutoLayout: boolean = false,
   direction: Direction = "LR"
 ) => {
   dagreGraph.setGraph({ rankdir: direction });
@@ -28,8 +29,8 @@ export const getLayoutedElements = (
     const newNode = {
       ...node,
       position: {
-        x: nodeWithPosition.x + nodeWidth / 2,
-        y: nodeWithPosition.y + nodeHeight / 2,
+        x: nodeWithPosition.x + nodeWidth,
+        y: nodeWithPosition.y + nodeHeight,
       },
     };
 
@@ -37,7 +38,7 @@ export const getLayoutedElements = (
   });
   const newEdges = edges.map((edge) => ({
     ...edge,
-    type: ConnectionLineType.SmoothStep,
+    type: isAutoLayout ? "customEdge" : "smoothStepEdge",
   }));
 
   return { nodes: newNodes, edges: newEdges };

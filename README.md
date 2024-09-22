@@ -1,32 +1,45 @@
 ![](https://github.com/xyflow/web/blob/main/assets/codesandbox-header-ts.png?raw=true)
 
-# React Flow starter (Vite + TS)
+# Payment Workflow Editor
 
-We've put together this template to serve as a starting point for folks
-interested in React Flow. You can use this both as a base for your own React
-Flow applications, or for small experiments or bug reports.
+## Description
 
-**TypeScript not your thing?** We also have a vanilla JavaScript starter template,
-just for you!
+This project is a payment workflow editor built using Node.js (v18), React (v18) with Vite, and styled with Ant Design. It allows users to visually manage payment providers and workflows, implementing features such as drag-and-drop functionality, undo/redo capabilities, and automatic node layout using Dagre.
 
-## Getting up and running
+## Features
 
-You can get this template without forking/cloning the repo using `degit`:
+- **Add Payment Providers**: Users can add unique payment provider nodes (e.g., Google Pay, Stripe, Apple Pay) from a dropdown list.
+- **Delete Nodes**: Each payment provider node includes a delete button for easy removal.
+- **Drag and Drop**: Users can drag and reposition nodes in real-time.
+- **Node Resizing**: Nodes can be resized for better customization. When a node is selected, users can click and drag the edges or corners to resize it, allowing for both vertical and horizontal adjustments.
+- **Node Connection Validation**: Validates connections between nodes, ensuring logical links. If a connection is invalid, a tooltip is displayed with an error message.
+- **Undo/Redo Functionality**: Allows users to revert or redo recent actions on nodes. For this, I used the `use-undoable` hook to implement this feature.
+- **Save and Load Workflow**: Workflows can be saved to and loaded from local storage.
+- **Validation**: Prevents adding duplicate payment provider nodes and provides error messages when duplicates are attempted.
+- **Auto Layout**: Automatically arranges nodes to avoid overlap and clutter using Dagre, which is a recommended library by React Flow.
+
+### Bonus Features
+
+- **Export/Import**: Functionality to export workflows as JSON files and re-import them.
+- **Zoom and Pan**: Users can zoom in/out and pan across the canvas for managing larger workflows.
+- **Highlight Connected Nodes**: Selecting a node highlights all connected nodes and edges. For this, I created a reusable Edge component that retrieves all the links for the selected node and changes their color accordingly.
+
+## Setup Instructions
+
+**Clone the repository**:
 
 ```bash
-npx degit xyflow/vite-react-flow-template your-app-name
+git clone https://github.com/sachingurjar47/workflow.git
+cd workflow
 ```
 
-The template contains mostly the minimum dependencies to get up and running, but
-also includes eslint and some additional rules to help you write React code that
-is less likely to run into issues:
+Install Dependencies:
 
 ```bash
-npm install # or `pnpm install` or `yarn install`
+npm install
 ```
 
-Vite is a great development server and build tool that we recommend our users to
-use. You can start a development server with:
+You can start a development server with:
 
 ```bash
 npm run dev
@@ -35,20 +48,9 @@ npm run dev
 While the development server is running, changes you make to the code will be
 automatically reflected in the browser!
 
-## Things to try:
-
-- Create a new custom node inside `src/nodes/` (don't forget to export it from `src/nodes/index.ts`).
-- Change how things look by [overriding some of the built-in classes](https://reactflow.dev/learn/customization/theming#overriding-built-in-classes).
-- Add a layouting library to [position your nodes automatically](https://reactflow.dev/learn/layouting/layouting)
-
 ## Resources
 
 Links:
 
 - [React Flow - Docs](https://reactflow.dev)
-- [React Flow - Discord](https://discord.com/invite/Bqt6xrs)
-
-Learn:
-
-- [React Flow – Custom Nodes](https://reactflow.dev/learn/customization/custom-nodes)
-- [React Flow – Layouting](https://reactflow.dev/learn/layouting/layouting)
+- [Dagrejs - Docs](https://github.com/dagrejs/dagre/wiki)
