@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Dropdown,
-  Flex,
-  MenuItemProps,
-  MenuProps,
-  Select,
-  Space,
-} from "antd";
+import { Dropdown, MenuProps, Space } from "antd";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import AppleIcon from "../assets/icons/AppleIcon";
 import PaypalIcon from "../assets/icons/PaypalIcon";
@@ -16,6 +8,7 @@ import StripeIcon from "../assets/icons/StripeIcon";
 import { useNodes, useReactFlow } from "@xyflow/react";
 import { useAlert } from "../utils/useAlert";
 import { DownOutlined } from "@ant-design/icons";
+import Button from "./Button";
 export const Icons: Record<string, React.ReactNode> = {
   stripe: <StripeIcon />,
   "google-pay": <GoogleIcon />,
@@ -24,7 +17,7 @@ export const Icons: Record<string, React.ReactNode> = {
   "amazon-pay": <AmazonIcon />,
 };
 
-const key = "add-payment-provider";
+const keyAlert = "add-payment-provider";
 const items = [
   { label: "Stripe", key: "stripe", icon: <StripeIcon /> },
   { label: "Google Pay", key: "google-pay", icon: <GoogleIcon /> },
@@ -44,9 +37,9 @@ const PaymentProviderSelect = () => {
       ?.some((item) => item?.key === key);
     if (alreadyExists) {
       alert.open({
-        key,
+        key: keyAlert,
         type: "error",
-        content: "Payment Provider AllPayment provider already exists!",
+        content: "Payment Provider already exists!",
       });
       return;
     }
@@ -68,35 +61,8 @@ const PaymentProviderSelect = () => {
     ]);
   };
   return (
-    <Flex
-      style={{
-        position: "absolute",
-        zIndex: 4,
-        width: "100%",
-        padding: "1rem",
-      }}
-      justify="center"
-      align="center"
-    >
-      <Dropdown trigger={["click"]} menu={{ items, onClick }}>
-        <Button
-          style={{
-            maxWidth: "350px",
-            width: "100%",
-            background: "lightgray",
-            height: "40px",
-            borderRadius: "1rem",
-          }}
-        >
-          <Space>
-            Add Payment Provider
-            <DownOutlined />
-          </Space>
-        </Button>
-      </Dropdown>
-      {/* <Select
-        placeholder="Add Payment Provider"
-        variant="borderless"
+    <Dropdown trigger={["click"]} menu={{ items, onClick }}>
+      <Button
         style={{
           maxWidth: "350px",
           width: "100%",
@@ -104,16 +70,14 @@ const PaymentProviderSelect = () => {
           height: "40px",
           borderRadius: "1rem",
         }}
-        options={options}
-        onChange={handelChange as any}
-        optionRender={(option) => (
-          <Space>
-            <span>{Icons[option?.data?.value]}</span>
-            {option.data.label}
-          </Space>
-        )}
-      /> */}
-    </Flex>
+        title="Add Payment Provider"
+      >
+        <Space>
+          Add Payment Provider
+          <DownOutlined />
+        </Space>
+      </Button>
+    </Dropdown>
   );
 };
 

@@ -7,8 +7,8 @@ import {
   useNodes,
   useReactFlow,
 } from "@xyflow/react";
-import { Button } from "antd";
 import React from "react";
+import Button from "./Button";
 
 const Edge: React.FC<EdgeProps> = (props) => {
   const { id } = props;
@@ -19,6 +19,7 @@ const Edge: React.FC<EdgeProps> = (props) => {
       <BezierEdge {...props} />
       <EdgeLabelRenderer>
         <Button
+          title="Delete Edge"
           aria-label="delete-edge"
           icon={<CloseOutlined />}
           danger

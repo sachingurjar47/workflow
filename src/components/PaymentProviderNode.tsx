@@ -1,5 +1,5 @@
 import { ArrowsAltOutlined, CloseOutlined } from "@ant-design/icons";
-import { Button, Flex } from "antd";
+import { Flex } from "antd";
 import Text from "antd/es/typography/Text";
 import React from "react";
 import Handle from "./Handle";
@@ -7,7 +7,8 @@ import { Edge, Position, useEdges, useReactFlow } from "@xyflow/react";
 import { PaymentProvider } from "../types/types";
 import { Icons } from "./PaymentProviderSelect";
 import NodeResizeControl from "./NodeResizeControl";
-import { useLinkEdge } from "../utils/useLinkEdge";
+import { getLinkEdge } from "../utils/getLinkEdge";
+import Button from "./Button";
 const controlStyle = {
   background: "transparent",
   border: "none",
@@ -19,7 +20,22 @@ const PaymentProviderNode: React.FC<PaymentProvider> = ({
 }) => {
   const { setNodes, setEdges } = useReactFlow();
   const edges = useEdges();
-  React.useEffect(() => {}, [selected]);
+  React.useEffect(() => {
+    const linkIds = getLinkEdge(id, edges);
+    setEdges((prev) => {
+      const newEdges = prev.map((item) => {
+        if (linkIds.includes(item.id)) {
+          return {
+            ...item,
+            animated: !selected,
+            style: selected ? { stroke: "red" } : {},
+          };
+        }
+        return item;
+      });
+      return newEdges;
+    });
+  }, [selected]);
   return (
     <>
       {selected && (
@@ -49,6 +65,7 @@ const PaymentProviderNode: React.FC<PaymentProvider> = ({
         </Flex>
         <Flex>
           <Button
+            title="Delete Payment Provider"
             aria-label="Delete Payment Provider"
             icon={<CloseOutlined />}
             size="small"
