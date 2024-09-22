@@ -122,8 +122,6 @@ const Workflow: React.FC<WorkflowProps> = () => {
   );
   const onNodesChange: OnNodesChange = useCallback(
     (changes) => {
-      console.log(changes);
-
       triggerUpdate("nodes", applyNodeChanges(changes, nodes));
     },
     [triggerUpdate, nodes]
@@ -179,8 +177,6 @@ const Workflow: React.FC<WorkflowProps> = () => {
     setIsAutoLayout(value);
   };
   const onUploadChange: UploadProps["onChange"] = async (event) => {
-    console.log(event);
-
     if (event.file) {
       const { edges = [], nodes = [] }: Data = await readJsonFile(
         event?.file?.originFileObj!
@@ -190,7 +186,7 @@ const Workflow: React.FC<WorkflowProps> = () => {
         type: "success",
         content: "Workflow Uploaded Successfully!",
       });
-      setElements((e) => ({
+      setElements((_: any) => ({
         nodes,
         edges,
       }));

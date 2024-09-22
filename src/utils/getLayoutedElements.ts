@@ -1,4 +1,4 @@
-import { ConnectionLineType, Edge, Node } from "@xyflow/react";
+import { Edge, Node } from "@xyflow/react";
 import dagre from "dagre";
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));

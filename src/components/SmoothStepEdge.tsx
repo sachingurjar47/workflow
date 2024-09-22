@@ -17,7 +17,7 @@ const SmoothStepEdge: React.FC<SimpleBezierEdgeProps> = (props) => {
   const { setEdges } = useReactFlow();
   const nodes = useNodes();
   const edges = useEdges();
-  const [edgePath, labelX, labelY] = getBezierPath(props);
+  const [_, labelX, labelY] = getBezierPath(props);
   const selectedNode = nodes.find((node) => node.selected);
 
   useEffect(() => {
